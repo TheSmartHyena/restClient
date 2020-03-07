@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+
+    <title> S.P (Simple Postman) </title>
+  </head>
+  <body>
+
+    <div class="container">
+
+        <div id="alertHolder"></div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <h2 class="text-center">
+                        Simple Postman alternative for rest testing
+                </h2>
+            </div>
+        </div>
+
+        <!-- Saisie de l'url -->
+        <div class="row mb-3">
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="urlRequest-desc">Url:</span>
+                    </div>
+                    <input type="text" class="form-control" id="urlRequest" aria-describedby="urlRequest-desc">
+                </div>
+            </div>
+        </div>
+
+        <!-- Saisie de content, méthode, langue -->
+        <div class="row mb-3">
+            <div class="col">
+                <label for="contentTypeRequest">Content-Type:</label>
+                <select class="form-control" id="typeRequest">
+                  <option value="application/json"> Json </option>
+                  <option value="application/x-www-form-urlencoded"> Form-urlencoded </option>
+                  <option value="application/xml"> Xml </option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="methodRequest">Méthode:</label>
+                <select class="form-control" id="methodRequest">
+                  <option value="get"> GET </option>
+                  <option value="post"> POST </option>
+                  <option value="put"> PUT </option>
+                  <option value="patch"> PATCH </option>
+                  <option value="delete"> DELETE </option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="langueRequest">Langue:</label>
+                <select class="form-control" id="langueRequest">
+                  <option value="fra"> FRA </option>
+                  <option value="eng"> ENG </option>
+                  <option value="esp"> ESP </option>
+                  <option value="deu"> DEU </option>
+                  <option value="ita"> ITA </option>
+                </select>
+            </div>
+        </div>
+
+        <!-- un champ texte pour envoyer des paramètres -->
+        <div class="row mb-3">
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="bodyRequest-desc">Corps:</span>
+                    </div>
+                    <input type="text" class="form-control" id="bodyRequest" aria-describedby="bodyRequest-desc">
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton envoyer -->
+        <div class="row">
+            <div class="col">
+                <button type="button" onclick="sendRequest();" class="btn btn-success w-100">Envoyer</button>
+            </div>
+        </div>
+
+        <!-- Résultat -->
+        <div class="row">
+
+        </div>
+    </div>
+
+    <script>
+
+        function sendRequest(){
+            displayWarning("Url invalide")
+        }
+
+    </script>
+
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src="./assets/js/jquery.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/axios.min.js"></script>
+
+    <script src="./assets/js/warningDisplay.js"></script>
+    <script src="./assets/js/request.js"></script>
+
+    <script>if (window.module) module = window.module;</script>
+    
+  </body>
+</html>
