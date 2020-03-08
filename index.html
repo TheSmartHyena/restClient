@@ -101,17 +101,27 @@
 
     </script>
 
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
-    <script src="./assets/js/jquery.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
-    <script src="./assets/js/axios.min.js"></script>
+    <script>
+        // Required for proper file loading under electron
+        if(typeof module === 'object'){
+            window.module = module; module = undefined;
+        }
+    </script>
+
+    <script src="./assets/js/lib/jquery.js"></script>
+    <script src="./assets/js/lib/popper.min.js"></script>
+    <script src="./assets/js/lib/bootstrap.min.js"></script>
+    <script src="./assets/js/lib/axios.min.js"></script>
 
     <script src="./assets/js/warningDisplay.js"></script>
     <script src="./assets/js/request.js"></script>
+    <script src="./assets/js/calc.js"></script>
 
-    <script>if (window.module) module = window.module;</script>
-    
+    <script>
+        // Same use as above
+        if(window.module) module = window.module;
+    </script>
+
   </body>
 </html>

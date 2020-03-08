@@ -1,8 +1,13 @@
 {
-    "name": "your-app",
-    "version": "0.1.0",
-    "main": "main.js",
-    "scripts": {
-      "start": "electron ."
-    }
+  "name": "your-app",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
+},"scripts": {
+    "test": "jest"
   }
+}
