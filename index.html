@@ -56,14 +56,16 @@
                   <option value="delete"> DELETE </option>
                 </select>
             </div>
+
+            <!-- Language code list :https://www.metamodpro.com/browser-language-codes -->
             <div class="col">
                 <label for="langueRequest">Langue:</label>
                 <select class="form-control" id="langueRequest">
-                  <option value="fra"> FRA </option>
-                  <option value="eng"> ENG </option>
-                  <option value="esp"> ESP </option>
-                  <option value="deu"> DEU </option>
-                  <option value="ita"> ITA </option>
+                  <option value="fr"> Français </option>
+                  <option value="en"> Anglais </option>
+                  <option value="es"> Espagnol </option>
+                  <option value="de"> Allemand </option>
+                  <option value="it"> Italien </option>
                 </select>
             </div>
         </div>
@@ -114,9 +116,14 @@
     <script src="./assets/js/lib/bootstrap.min.js"></script>
     <script src="./assets/js/lib/axios.min.js"></script>
 
-    <script src="./assets/js/warningDisplay.js"></script>
+    <!-- Static tools -->
+    <script src="./assets/js/render.js"></script>
+
+    <!-- Constants & erros -->
+    <script src="./assets/js/constants.js"></script>
+    <script src="./assets/js/customErrors.js"></script>
+
     <script src="./assets/js/request.js"></script>
-    <script src="./assets/js/calc.js"></script>
 
     <script>
         // Same use as above

@@ -1,5 +1,6 @@
-function sendRequest(){
+async function sendRequest(){
 
+    // Lazy jquery
     const url = $("#urlRequest").val()
     const contentType = $("#typeRequest").val()
     const method = $("#methodRequest").val()
@@ -8,15 +9,43 @@ function sendRequest(){
 
     const request = RequestMaker.createRequest(url, contentType, method, language, body)
     console.log(request)
-    if(request){
-        const result = RequestMaker.executeRequest(request)
-        displayRequestResult(result)
-    }
 
+    if(request){
+        // Using a callback makes clean reponse, and separate execution from render
+        RequestMaker.executeRequest(request, RenderRequest.renderResult)
+    }
 }
 
-function displayRequestResult(toDisplay){
-    console.log("Poney de fin")
+class RequestToAxios {
+
+    // Check if value are valid
+    static convert(request){
+
+        const result = {
+
+          // `url` is the server URL that will be used for the request
+          url: request.url,
+
+          // `method` is the request method to be used when making the request
+          method: request.method,
+
+          // `headers` are custom headers to be sent
+          headers: { 'Content-Type': request.contentType, 'Accept-Language': request.language }
+
+        }
+
+        // `data` is the data to be sent as the request body
+        // Only applicable for request methods 'PUT', 'POST', and 'PATCH'
+        // When no `transformRequest` is set, must be of one of the following types:
+        // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
+        // - Browser only: FormData, File, Blob
+        // - Node only: Stream, Buffer
+        if(request.method === 'put' || request.method === 'post' || request.method === 'patch'){
+            result.data = request.body
+        }
+
+        return result
+    }
 }
 
 class RequestMaker {
@@ -34,56 +63,22 @@ class RequestMaker {
     }
 
     // axios buiseness
-    static executeRequest(requestConfig) {
-        try{
+    static executeRequest(requestConfig, callBack) {
 
-        }catch(err){
-            console.log(err)
-        }
+        const axiosRequest = RequestToAxios.convert(requestConfig)
+        axios(axiosRequest)
+            .then((response)=>{
+                callBack(response)
+            })
+            .catch((err) => {
+                console.log(err)
+                RenderAlert.renderAlert("Erreur lors de la requête", "danger")
+            })
     }
 
-}
-
-class InvalidUrl extends Error {
-    constructor(message="Invalid url"){
-        super(message)
-        AlertTools.displayWarning(message)
-    }
-}
-
-class InvalidContentType extends Error {
-    constructor(message="Invalid content-type"){
-        super(message)
-        AlertTools.displayWarning(message)
-    }
-}
-
-class InvalidMethod extends Error {
-    constructor(message="Invalid method"){
-        super(message)
-        AlertTools.displayWarning(message)
-    }
-}
-
-class InvalidLanguage extends Error {
-    constructor(message="Invalid language"){
-        super(message)
-        AlertTools.displayWarning(message)
-    }
-}
-
-class InvalidBody extends Error {
-    constructor(message="Invalid body"){
-        super(message)
-        AlertTools.displayWarning(message)
-    }
 }
 
 class RequestConfigValider{
-
-    static #validContentType = new Set(["application/json", "application/x-www-form-urlencoded", "application/xml"])
-    static #validMethods = new Set(["get", "post", "put", "patch", "delete"])
-    static #validLanguage = new Set(["fra", "end", "esp", "ita", "deu"])
 
     static validateRequestConfig(requestConfig){
         this.validateUrl(requestConfig.url)
@@ -102,21 +97,21 @@ class RequestConfigValider{
     }
 
     static validateContentType(toValidate){
-        const result = this.#validContentType.has(toValidate.toLowerCase())
-        if(!result){
-            throw new InvalidMethod()
-        }
-    }
-
-    static validateMethod(toValidate){
-        const result = this.#validMethods.has(toValidate.toLowerCase())
+        const result = valid.contentType.has(toValidate.toLowerCase())
         if(!result){
             throw new InvalidContentType()
         }
     }
 
+    static validateMethod(toValidate){
+        const result = valid.methods.has(toValidate.toLowerCase())
+        if(!result){
+            throw new InvalidMethod()
+        }
+    }
+
     static validateLanguage(toValidate){
-        const result = this.#validLanguage.has(toValidate.toLowerCase())
+        const result = valid.language.has(toValidate.toLowerCase())
         if(!result){
             throw new InvalidLanguage()
         }
@@ -130,64 +125,57 @@ class RequestConfigValider{
 
 class RequestConfig{
 
-    // Private var declaration
-    #url = ""
-    #contentType = ""
-    #method = ""
-    #language = ""
-    #body = ""
-
     constructor(url="", contentType="", method="", language="", body="") {
-       this.#url = url
-       this.#contentType = contentType
-       this.#method = method
-       this.#language = language
-       this.#body = body
+       this._url = url
+       this._contentType = contentType
+       this._method = method
+       this._language = language
+       this._body = body
    }
 
    // url
    get url() {
-       return this.#url
+       return this._url
    }
 
    set url(url) {
-        this.#url = url
+        this._url = url
    }
 
    // contentType
    get contentType() {
-       return this.#contentType
+       return this._contentType
    }
 
    set contentType(contentType) {
-       this.#contentType = contentType
+       this._contentType = contentType
    }
 
    // method
    get method() {
-       return this.#method
+       return this._method
    }
 
    set method(method) {
-       this.#method = method
+       this._method = method
    }
 
    // language
    get language() {
-       return this.#language
+       return this._language
    }
 
    set language(language) {
-       this.#language = language
+       this._language = language
    }
 
    // body
    get body() {
-       return this.#body
+       return this._body
    }
 
    set body(body) {
-       his.#body = body
+       his._body = body
    }
 
 }

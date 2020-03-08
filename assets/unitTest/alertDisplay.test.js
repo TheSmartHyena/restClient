@@ -1,4 +1,4 @@
-const sum = require('../js/warningDisplay.js');
+const sum = require('../js/render.js');
 
 test('two plus two', () => {
   const value = 2 + 2;
