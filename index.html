@@ -82,15 +82,35 @@
         </div>
 
         <!-- Bouton envoyer -->
-        <div class="row">
+        <div class="row mb-3">
             <div class="col">
                 <button type="button" onclick="sendRequest();" class="btn btn-success w-100">Envoyer</button>
             </div>
         </div>
 
         <!-- Résultat -->
-        <div class="row">
+        <div class="row mb-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header text-center" id="headerCardId">
+                        <span id="statusSpan"> </span>
+                    </div>
+                    <div class="card-body">
+                            <p class="text-center" id="headerDescription"> </p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="text-center"> Entêtes </h3>
 
+                                <span id="headerResult"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <h3 class="text-center"> Données </h3>
+                                <span id="dataResult"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -116,6 +136,7 @@
     <script src="./assets/js/lib/axios.min.js"></script>
 
     <!-- Static tools -->
+    <script src="./assets/js/jsonHttp.js"></script>
     <script src="./assets/js/render.js"></script>
 
     <!-- Constants & erros -->

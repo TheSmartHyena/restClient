@@ -71,8 +71,13 @@ class RequestMaker {
                 callBack(response)
             })
             .catch((err) => {
-                console.log(err)
-                RenderAlert.renderAlert("Erreur lors de la requête", "danger")
+                if(err.response){
+                    callBack(err.response)
+                }else{
+                    console.log(err)
+                    RenderAlert.renderAlert("Erreur lors de la requête", "danger")
+                }
+
             })
     }
 
